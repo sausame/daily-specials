@@ -1,6 +1,6 @@
 Overview
 ========
-This `Daily Specials` plans to generate daily goods list which are *realy discount, valuable and approved by many customers*.
+This `Daily Specials` plans to generate daily goods list which are *really discounted, valuable and approved by many customers*.
 
 Usage
 =====
