@@ -7,7 +7,7 @@ if __name__ == '__main__':
     reload(sys)
     sys.setdefaultencoding('utf8')
 
-    manager = WareManager()
+    manager = WareManager(True)
     manager.initWareList()
     manager.updatePriceHistories()
 

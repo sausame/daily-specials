@@ -8,7 +8,8 @@ from network import saveHttpData
 
 class WareManager:
 
-    def __init__(self):
+    def __init__(self, isLocal=False):
+        self.isLocal = isLocal
         self.wareList = []
 
         try:
@@ -30,9 +31,9 @@ class WareManager:
         for gid in gids:
             path = 'data/%d.json' % gid
 
-            ret = saveHttpData(path, 'http://coupon.m.jd.com/seckill/seckillList.json?gid=%d' % gid)
-
-            if ret < 0: continue
+            if not self.isLocal:
+                ret = saveHttpData(path, 'http://coupon.m.jd.com/seckill/seckillList.json?gid=%d' % gid)
+                if ret < 0: continue
 
             seckillInfo = SeckillInfo(path)
 
@@ -61,7 +62,11 @@ class WareManager:
 
             # Get price histories
             path = 'data/{}.js'.format(ware.wid)
-            ret = saveHttpData(path, url)
+
+            # Update from servers
+            if not self.isLocal:
+                ret = saveHttpData(path, url)
+                if ret < 0: continue
 
             # Parse
             parser = HhHistoryParser()
@@ -70,12 +75,14 @@ class WareManager:
 
             if parser.parse(path):
                 historyData = parser.getHistoryData()
-                ware.setHistories(historyData.histories)
+                if historyData:
+                    ware.setHistories(historyData.histories)
 
             # os.remove(path)
 
             print ware
 
             # Sleep for a while
-            time.sleep(random.random())
+            if not self.isLocal:
+                time.sleep(random.random())
 

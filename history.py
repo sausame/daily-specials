@@ -46,6 +46,8 @@ class ThisItem:
 class PriceHistoryData:
 
     def __init__(self, dictObj):
+        self.histories = None
+
         self.set(dictObj)
 
     def set(self, dictObj):
