@@ -71,18 +71,21 @@ class WareManager:
             # Parse
             parser = HhHistoryParser()
 
-            print ware.wid
-
             if parser.parse(path):
                 historyData = parser.getHistoryData()
                 if historyData:
                     ware.setHistories(historyData.histories)
 
-            # os.remove(path)
+            ware.update()
 
-            print ware
+            # os.remove(path)
 
             # Sleep for a while
             if not self.isLocal:
                 time.sleep(random.random())
+
+        self.wareList.sort()
+
+        for ware in self.wareList:
+            print ware
 
