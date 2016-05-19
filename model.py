@@ -1,5 +1,6 @@
 import os, random, sys, time
 
+from datetime import datetime
 from ware import WareItem
 from js import JsExecutor
 from source import SeckillInfo
@@ -86,6 +87,28 @@ class WareManager:
 
         self.wareList.sort()
 
+    def outputHtml(self):
+
+        today = datetime.now().strftime('%Y-%m-%d')
+
+        path = 'data/{}.html'.format(today)
+        fpOut = open(path, 'w')
+
+        with open('html/header.html') as fp:
+
+            template = fp.read()
+            fpOut.write(template.format(today))
+
         for ware in self.wareList:
-            print ware
+
+            data = ware.outputHtml()
+            fpOut.write(data)
+
+        with open('html/footer.html') as fp:
+
+            fpOut.write(fp.read())
+
+        fpOut.close()
+
+        print '"{}" items are outputed to "{}".'.format(len(self.wareList), path)
 

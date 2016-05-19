@@ -144,3 +144,11 @@ class WareItem:
     def __gt__(self, other):
         return (self.weight > other.weight)
 
+    def outputHtml(self):
+
+        with open('html/ware.html') as fp:
+            template = fp.read()
+            return template.format(self)
+
+        return None
+

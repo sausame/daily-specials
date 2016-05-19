@@ -10,4 +10,5 @@ if __name__ == '__main__':
     manager = WareManager(True)
     manager.initWareList()
     manager.updatePriceHistories()
+    manager.outputHtml()
 
