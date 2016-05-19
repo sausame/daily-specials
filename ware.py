@@ -76,20 +76,22 @@ class WareItem:
         # Sort histories
         self.histories.sort(key=attrgetter('time'))
 
-        # Travel histories
+        # Calculate prices ratios
         prices = []
         self.totalDays = 0
 
-        for i in range(0, len(self.histories)):
+        size = len(self.histories)
+
+        for i in range(0, size):
 
             history = self.histories[i]
             days = 1
 
-            if i > 0:
-                lastDate = datetime.strptime(self.histories[i-1].time, '%Y-%m-%d')
+            if i < size - 1:
                 thisDate = datetime.strptime(history.time, '%Y-%m-%d')
+                nextDate = datetime.strptime(self.histories[i+1].time, '%Y-%m-%d')
 
-                days = (thisDate - lastDate).days
+                days = (nextDate - thisDate).days
 
             self.totalDays += days
 
@@ -98,7 +100,6 @@ class WareItem:
         prices.sort()
 
         pos = -1
-
         for price in prices:
             if pos >= 0 and self.prices[pos].price == price[0]:
                 self.prices[pos].days += price[1]
@@ -106,6 +107,10 @@ class WareItem:
             else:
                 self.prices.append(Price(price[0], price[1], float(price[1]) / float(self.totalDays)))
                 pos += 1
+
+        # Calculate discounts
+        self.lowestPrice = self.prices[0].price
+        self.lowestDiscount = int(100 * float(self.price) / float(self.lowestPrice))
 
         self.highestPrice = self.prices[len(self.prices) - 1].price
         self.highestDiscount = int(100 * float(self.price) / float(self.highestPrice))
@@ -116,7 +121,8 @@ class WareItem:
 
         self.avgDiscount = int(100 * float(self.price) / float(self.avgPrice))
 
-        self.weight = self.avgDiscount / self.totalDays
+        # Calculate weights
+        self.weight = self.lowestDiscount / float(self.totalDays)
 
     def __repr__(self):
         fields = ['    {}={}'.format(k, v)
