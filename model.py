@@ -66,6 +66,7 @@ class WareManager:
 
             # Update from servers
             if not self.isLocal:
+                print 'Update {}'.format(ware.wid)
                 ret = saveHttpData(path, url)
                 if ret < 0: continue
 
