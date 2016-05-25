@@ -109,15 +109,17 @@ class WareItem:
                 pos += 1
 
         # Calculate discounts
-        self.lowestPrice = self.prices[0].price
+        self.lowestPrice = float(int(100 * self.prices[0].price)) / 100
         self.lowestDiscount = int(100 * float(self.price) / float(self.lowestPrice))
 
-        self.highestPrice = self.prices[len(self.prices) - 1].price
+        self.highestPrice = float(int(self.prices[len(self.prices) - 1].price)) / 100
         self.highestDiscount = int(100 * float(self.price) / float(self.highestPrice))
 
         self.avgPrice = 0.0
         for price in self.prices:
             self.avgPrice += float(price.price) * price.ratio
+
+        self.avgPrice = float(int(100 * self.avgPrice)) / 100
 
         self.avgDiscount = int(100 * float(self.price) / float(self.avgPrice))
 
