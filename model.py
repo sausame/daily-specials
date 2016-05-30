@@ -103,7 +103,8 @@ class WareManager:
         for ware in self.wareList:
 
             data = ware.outputHtml()
-            fpOut.write(data)
+            if data:
+                fpOut.write(data)
 
         with open('html/footer.html') as fp:
 
