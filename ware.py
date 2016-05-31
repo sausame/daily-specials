@@ -127,6 +127,13 @@ class WareItem:
         self.lowestRatio = int(100 * float(self.lowestPrice) / float(self.avgPrice))
 
         # Calculate weights
+        '''
+        Weight should be measured by factors as following:
+        1, discount relative to lowest prices
+        2, discount relative to average prices
+        3, off amount
+        4, days
+        '''
         lowestDiscount = float(self.price) / float(self.lowestPrice)
 
         lg = math.log(self.totalDays)
