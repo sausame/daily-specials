@@ -108,12 +108,8 @@ class WareItem:
                 self.prices.append(Price(price[0], price[1], float(price[1]) / float(self.totalDays)))
                 pos += 1
 
-        # Calculate discounts
+        # Calculate prices and discounts
         self.lowestPrice = float(int(100 * self.prices[0].price)) / 100
-        self.lowestDiscount = int(100 * float(self.price) / float(self.lowestPrice))
-
-        self.highestPrice = float(int(self.prices[len(self.prices) - 1].price)) / 100
-        self.highestDiscount = int(100 * float(self.price) / float(self.highestPrice))
 
         self.avgPrice = 0.0
         for price in self.prices:
@@ -121,10 +117,16 @@ class WareItem:
 
         self.avgPrice = float(int(100 * self.avgPrice)) / 100
 
-        self.avgDiscount = int(100 * float(self.price) / float(self.avgPrice))
+        # Calculate discounts
+        self.discount = int(100 * float(self.price) / float(self.avgPrice))
+        if 0 == self.discount:
+            self.discount = 1
+
+        self.lowestRatio = int(100 * float(self.lowestPrice) / float(self.avgPrice))
 
         # Calculate weights
-        self.weight = self.lowestDiscount / float(self.totalDays)
+        lowestDiscount = int(100 * float(self.price) / float(self.lowestPrice))
+        self.weight = lowestDiscount / float(self.totalDays)
 
     def __repr__(self):
         fields = ['    {}={}'.format(k, v)
@@ -146,11 +148,32 @@ class WareItem:
     def __gt__(self, other):
         return (self.weight > other.weight)
 
-    def outputHtml(self):
+class WareDisplayer:
 
-        with open('html/ware.html') as fp:
-            template = fp.read()
-            return template.format(self)
+    def outputHtml(self, ware):
+
+        maxRatio = 80
+
+        # Discount
+        self.discount = maxRatio * ware.discount / 100
+
+        # Let a small discount look a little bigger
+        if self.discount < 2: self.discount += 2
+
+        # Lowest Ratio
+        self.lowestRatio = maxRatio * ware.lowestRatio / 100
+
+        # Average Ratio
+        self.avgRatio = maxRatio
+
+        # Padding
+        self.padding = 5
+        if self.discount < 10: self.padding = 10
+
+        if self.discount <= self.lowestRatio:
+            with open('html/ware.html') as fp:
+                template = fp.read()
+                return template.format(ware, self)
 
         return None
 

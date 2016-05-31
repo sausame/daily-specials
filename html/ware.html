@@ -1,41 +1,126 @@
 <section>
-    <h2 placeholder="{0.name}" style="border-left:5px solid #666765;font-size: 16px;font-weight:bold; line-height: 32px;color:#666;padding: 5px 10px; margin: 10px 0px;">
-      <a href="{0.url}">{0.name}</a>
+    <h2 placeholder="{0.name}" style="border-left:5px solid #666765;font-size: 18px;font-weight:bold; line-height: 32px;color:#666;padding: 5px 10px; margin: 10px 0px;">
+        <a style="color:#666;" href="{0.url}">{0.name}</a>
     </h2>
 </section>
 
-<section style="font-family:&#39;Microsoft YaHei&#39;;margin: 5px auto;white-space: normal;">
-    <section style="border:0 none;padding:0;box-sizing:border-box;margin:0;font-family:微软雅黑">
-        <section style="margin:.3em 0;padding-bottom:1.5em;font-weight:700;text-align:left;text-decoration:inherit;box-sizing:border-box;border-color:#499EF3">
-            <img src="{0.imageurl}" style="border-top-left-radius:10%;border-top-right-radius:10%;border-bottom-right-radius:10%;border-bottom-left-radius:10%;color:inherit;margin-left:50px;margin-right:10px;vertical-align:middle;width:180px;height:180px!important;box-sizing:border-box;padding:0" data-width="180px"/>
-            <section style="border-left-width:1px;border-left-style:solid;border-color:#499EF3;padding-left:1em;text-align:left;display:inline-block;height:10em;vertical-align:top;color:#499EF3;margin-top:1em;box-sizing:border-box">
-                <h2 style="width:100%;overflow:hidden;height:20%;margin-top:-.15em;border-color:#499EF3;color:inherit;margin-bottom:.5em;box-sizing:border-box;padding:0" data-width="100%">
-                    当前价格：<strong><span style="line-height:1.35em">￥{0.price}</span></strong>
-                </h2>
-                <section data-style="font-size: 16px;" style="font-size:16px;border-color:#499EF3;color:inherit;box-sizing:border-box;padding:0;margin:0">
-                    <section style="background: none repeat scroll 0 0 #fafafa;border-top: 1px solid #f2f2f2;color: #999;padding: 16px; 15px;">
-                        <section data-style="clear: none;line-height:34px;padding:0 0;font-size:12px; margin-right:10px; width:80px">
-                            <p style="border-color:#499EF3;color:inherit;box-sizing:border-box;padding:0;margin-top:0;margin-bottom:0">
-                                历史最低价：<strong>￥{0.lowestPrice}</strong>
-                            </p>
-                            <p style="border-color:#499EF3;color:inherit;box-sizing:border-box;padding:0;margin-top:0;margin-bottom:0">
-                                最低折扣：{0.lowestDiscount}%
-                            </p>
-                            <p style="border-color:#499EF3;color:inherit;box-sizing:border-box;padding:0;margin-top:0;margin-bottom:0">
-                                平均价格：<strong>￥{0.avgPrice}</strong>
-                            </p>
-                            <p style="border-color:#499EF3;color:inherit;box-sizing:border-box;padding:0;margin-top:0;margin-bottom:0">
-                                平均折扣：{0.lowestDiscount}%
-                            </p>
-                            <p style="border-color:#499EF3;color:inherit;box-sizing:border-box;padding:0;margin-top:0;margin-bottom:0">
-                                上架天数：<strong>{0.totalDays}</strong>
-                            </p>
+<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">
+    <section data-ct="fix">
+        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">
+            <section>
+                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">
+                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; max-height: 60px; max-width: 60px;">
+                        <img src="{0.imageurl}" style="border-radius:10%; width:100%; vertical-align:middle; margin:0; height:auto!important"/>
+                    </section>
+                </section>
+                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">
+                    <section style="border: 0px none; padding: 0px; text-align: left;">
+                        <section style="padding-left: 10px; min-height: 60px; border-left:1px solid rgb(73, 158, 243)">
+                            <section style="padding-left: 10px; line-height: 1em; white-space: normal;">
+                                <h2 style="color:#499EF3;">
+                                    当前价格：￥{0.price}
+                                </h2>
+                                <p style="color:#666;">
+                                    上架天数：<strong>{0.totalDays}</strong>
+                                </p>
+                            </section>
                         </section>
                     </section>
-
                 </section>
             </section>
         </section>
     </section>
 </section>
+<p style="height: 0px">
+</p>
+<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">
+    <section data-ct="fix">
+        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">
+            <section style="font-size: 14px;">
+                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">
+                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; min-height: 20px;">
+                        <span style="font-size: 14px; color:#333;">当前价格</span>
+                    </section>
+                </section>
+                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">
+                    <section style="border: 0px none; padding: 0px; text-align: left;">
+                        <section style="padding-left: 10px; border-left:1px solid rgb(73, 158, 243)">
+                            <section style="width: {1.discount}%; display: inline-block; float: left;" data-width="{1.discount}%">
+                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255); background-color: rgb(255, 57, 31);">
+                                    <span style="color:#333;">￥{0.price}</span>
+                                </section>
+                            </section>
+                            <section style="margin-left: 0px; display: inline-block;">
+                                <section data-ct="fix" style="padding: 5px {1.padding}px; min-height: 16px; border:2px solid rgb(255, 255, 255)">
+                                    <span style="color:#666;">{0.discount}%</span>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+
+<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">
+    <section data-ct="fix">
+        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">
+            <section style="font-size: 14px;">
+                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">
+                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; min-height: 20px;">
+                        <span style="font-size: 14px; color:#333;">历史最价格</span>
+                    </section>
+                </section>
+                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">
+                    <section style="border: 0px none; padding: 0px; text-align: left;">
+                        <section style="padding-left: 10px; border-left:1px solid rgb(73, 158, 243)">
+                            <section style="width: {1.lowestRatio}%; display: inline-block; float: left;" data-width="{1.lowestRatio}%">
+                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255); background-color: rgb(255, 169, 33);">
+                                    <span style="color:#333;">￥{0.lowestPrice}</span>
+                                </section>
+                            </section>
+                            <section style="margin-left: 0px; display: inline-block;">
+                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255)">
+                                    <span style="color:#666;">{0.lowestRatio}%</span>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+
+<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">
+    <section data-ct="fix">
+        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">
+            <section style="font-size: 14px;">
+                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">
+                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; min-height: 20px;">
+                        <span style="font-size: 14px; color:#333;">平均价格</span>
+                    </section>
+                </section>
+                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">
+                    <section style="border: 0px none; padding: 0px; text-align: left;">
+                        <section style="padding-left: 10px; border-left:1px solid rgb(73, 158, 243)">
+                            <section style="width: {1.avgRatio}%; display: inline-block; float: left;" data-width="{1.avgRatio}%">
+                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255); background-color: rgb(5, 157, 127);">
+                                    <span style="color:#FFF;">￥{0.avgPrice}</span>
+                                </section>
+                            </section>
+                            <section style="margin-left: 0px; display: inline-block;">
+                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255)">
+                                    <span style="color:#666;">100%</span>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+
 
