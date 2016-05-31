@@ -1,7 +1,7 @@
 import os, random, sys, time
 
 from datetime import datetime
-from ware import WareItem
+from ware import WareItem, WareDisplayer
 from js import JsExecutor
 from source import SeckillInfo
 from history import HhHistoryParser
@@ -102,7 +102,9 @@ class WareManager:
 
         for ware in self.wareList:
 
-            data = ware.outputHtml()
+            displayer = WareDisplayer()
+
+            data = displayer.outputHtml(ware)
             if data:
                 fpOut.write(data)
 

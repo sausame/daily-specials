@@ -118,15 +118,11 @@ class WareItem:
         self.avgPrice = float(int(100 * self.avgPrice)) / 100
 
         # Calculate discounts
-        self.avgDiscount = int(100 * float(self.price) / float(self.avgPrice))
-        self.avgRidOf = 100 - self.avgDiscount
+        self.discount = int(100 * float(self.price) / float(self.avgPrice))
+        if 0 == self.discount:
+            self.discount = 1
 
-        # Calculate ratios
         self.lowestRatio = int(100 * float(self.lowestPrice) / float(self.avgPrice))
-
-        if self.avgDiscount <= self.lowestRatio:
-            self.relativeLowestRatio = int(100 * (self.lowestRatio - self.avgDiscount) / self.avgRidOf)
-            self.relativeLowestRidOfRatio = 100 - self.relativeLowestRatio
 
         # Calculate weights
         lowestDiscount = int(100 * float(self.price) / float(self.lowestPrice))
@@ -152,12 +148,34 @@ class WareItem:
     def __gt__(self, other):
         return (self.weight > other.weight)
 
-    def outputHtml(self):
+class WareDisplayer:
 
-        if self.avgDiscount <= self.lowestRatio:
+    def outputHtml(self, ware):
+
+        maxRatio = 80
+
+        # Discount
+        self.discount = maxRatio * ware.discount / 100
+
+        # Let a small discount look a little bigger
+        if self.discount < 2: self.discount += 2
+
+        # Lowest Ratio
+        self.lowestRatio = maxRatio * ware.lowestRatio / 100
+
+        # Average Ratio
+        self.avgRatio = maxRatio
+
+        # Padding
+        self.padding = 5
+        if self.discount < 10: self.padding = 10
+
+        if self.discount <= self.lowestRatio:
             with open('html/ware.html') as fp:
                 template = fp.read()
-                return template.format(self)
+                return template.format(ware, self)
 
         return None
+
+
 
