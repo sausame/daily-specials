@@ -1,3 +1,5 @@
+import math
+
 from datetime import tzinfo, timedelta, datetime
 from functools import total_ordering
 from operator import attrgetter
@@ -125,8 +127,12 @@ class WareItem:
         self.lowestRatio = int(100 * float(self.lowestPrice) / float(self.avgPrice))
 
         # Calculate weights
-        lowestDiscount = int(100 * float(self.price) / float(self.lowestPrice))
-        self.weight = lowestDiscount / float(self.totalDays)
+        lowestDiscount = float(self.price) / float(self.lowestPrice)
+
+        lg = math.log(self.totalDays)
+        if 0 == lg: lg = 0.1 # Log(1) is 0.0
+
+        self.weight = lowestDiscount / lg
 
     def __repr__(self):
         fields = ['    {}={}'.format(k, v)
