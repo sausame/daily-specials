@@ -9,7 +9,7 @@
         <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">
             <section>
                 <section style="width: 20%; display: inline-block; float: left;" data-width="20%">
-                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; max-height: 60px; max-width: 60px;">
+                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; max-height: 100px; max-width: 100px;">
                         <img src="{0.imageurl}" style="border-radius:10%; width:100%; vertical-align:middle; margin:0; height:auto!important"/>
                     </section>
                 </section>
@@ -18,10 +18,12 @@
                         <section style="padding-left: 10px; min-height: 60px; border-left:1px solid rgb(73, 158, 243)">
                             <section style="padding-left: 10px; line-height: 1em; white-space: normal;">
                                 <h2 style="color:#499EF3;">
-                                    当前价格：￥{0.price}
+                                    当前价格：&nbsp;￥{0.price}
                                 </h2>
                                 <p style="color:#666;">
-                                    上架天数：<strong>{0.totalDays}</strong>
+                                    上架天数：&nbsp;<span style="color:{1.totalDaysColor};"><strong>{0.totalDays}</strong></span><br/>
+                                    开始时间：&nbsp;<strong>{0.startTime}</strong><br/>
+                                    结束时间：&nbsp;<strong>{0.endTime}</strong>
                                 </p>
                             </section>
                         </section>

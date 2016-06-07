@@ -38,10 +38,17 @@ class WareManager:
 
             seckillInfo = SeckillInfo(path)
 
+            # Find current matchesItem
+            for matchesItem in seckillInfo.matchesList:
+
+                if matchesItem.gid == gid:
+                    break;
+
+            # Set ware items
             for item in seckillInfo.itemList:
 
                 wItem = WareItem()
-                wItem.setSeckillItem(item)
+                wItem.setSeckillItem(item, matchesItem)
 
                 self.wareList.append(wItem)
 

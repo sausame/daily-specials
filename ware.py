@@ -50,7 +50,7 @@ class WareItem:
         self.histories = []
         self.prices = []
 
-    def setSeckillItem(self, item):
+    def setSeckillItem(self, item, matchesItem):
 
         # Basic
         self.wid = item.wareId
@@ -61,8 +61,8 @@ class WareItem:
         self.histories.append(PriceHistory(price=float(item.jdPrice), time=datetime.now().strftime('%Y-%m-%d')))
 
         # Start and end times
-        self.startTime = item.startTimeShow
-        self.endTime = (item.endRemainTime - item.startRemainTime) / 3600
+        self.startTime = matchesItem.startTime
+        self.endTime = matchesItem.endTime
 
         # URL
         self.url = 'http://item.m.jd.com/product/%s.html' % item.wareId
@@ -182,6 +182,16 @@ class WareDisplayer:
         # Padding
         self.padding = 5
         if self.discount < 10: self.padding = 10
+
+        # Colors
+        if ware.totalDays < 30:
+            self.totalDaysColor = 'rgb(255, 57, 31)'
+        elif ware.totalDays < 60:
+            self.totalDaysColor = 'rgb(255, 169, 33)'
+        elif ware.totalDays < 90:
+            self.totalDaysColor = 'rgb(5, 157, 127)'
+        else:
+            self.totalDaysColor = '#666'
 
         if self.discount <= self.lowestRatio:
             with open('html/ware.html') as fp:

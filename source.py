@@ -1,5 +1,34 @@
 import json
 
+class MatchesItem:
+
+    def __init__(self, **kwargs):
+        self.set(**kwargs)
+
+    def set(self, **kwargs):
+        for keyword in ["gid", "displayTime", "name", "timeRemain",
+            "groupTime", "sourceValue", "startTime", "endTime"]:
+
+            value = ""
+            try:
+                value = kwargs[keyword]
+            except KeyError:
+                pass
+            finally:
+                setattr(self, keyword, value)
+            '''
+            try:
+                setattr(self, keyword, kwargs[keyword])
+            except KeyError:
+                pass
+            '''
+
+    def __repr__(self):
+        fields = ['    {}={}'.format(k, v)
+            for k, v in self.__dict__.items() if not k.startswith("_")]
+
+        return "  {}:\n{}".format(self.__class__.__name__, '\n'.join(fields))
+
 class SeckillItem:
 
     def __init__(self, **kwargs):
@@ -39,6 +68,7 @@ class SeckillInfo:
     def set(self, dictObj):
         self.timeRemain = dictObj.pop("timeRemain")
         self.itemList = [SeckillItem(**item) for item in dictObj["itemList"]]
+        self.matchesList = [MatchesItem(**item) for item in dictObj["matchesList"]]
 
     def __repr__(self):
 
@@ -48,6 +78,9 @@ class SeckillInfo:
         str = ''
         for item in self.itemList:
             str += '{}\n'.format(item)
+
+        for matchesItem in self.matchesList:
+            str += '{}\n'.format(matchesItem)
 
         return "{}:\n{}\n{}".format(self.__class__.__name__, '\n'.join(fields), str)
 
