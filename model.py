@@ -23,14 +23,35 @@ class WareManager:
         # Update from Jd
         self.updateJdWareList()
 
+    def getJdGids(self):
+
+        gids = []
+        gid = 26
+
+        path = 'data/%d.json' % gid
+
+        print "Retrieve {} for indexes".format(path)
+
+        if not self.isLocal:
+            ret = saveHttpData(path, 'http://coupon.m.jd.com/seckill/seckillList.json?gid=%d' % gid)
+            if ret < 0: return gids
+
+        seckillInfo = SeckillInfo(path)
+
+        # Find all matchesItems
+        for matchesItem in seckillInfo.matchesList:
+            gids += matchesItem.gid,
+
+        return gids
+
     def updateJdWareList(self):
 
-        start = 26
-        size = 5
-        gids = [x for x in range(start, start + size)]
+        gids = self.getJdGids()
 
         for gid in gids:
             path = 'data/%d.json' % gid
+
+            print "Retrieve {}".format(path)
 
             if not self.isLocal:
                 ret = saveHttpData(path, 'http://coupon.m.jd.com/seckill/seckillList.json?gid=%d' % gid)
@@ -53,6 +74,10 @@ class WareManager:
                 self.wareList.append(wItem)
 
             # os.remove(path)
+
+            # Sleep for a while
+            if not self.isLocal:
+                time.sleep(random.random())
 
     def updatePriceHistories(self):
 
