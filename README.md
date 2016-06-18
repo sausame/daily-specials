@@ -21,6 +21,12 @@ $ sudo apt-get install libmozjs185-dev
 $ sudo pip install python-spidermonkey
 ```
 
+- PyInstaller
+
+```shell
+$ sudo pip install pyinstaller
+```
+
 License
 =======
 
