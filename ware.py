@@ -193,6 +193,12 @@ class WareDisplayer:
         else:
             self.totalDaysColor = '#666'
 
+        # Total days
+        if ware.totalDays >= 365:
+            self.totalDays = ">{}".format(ware.totalDays)
+        else:
+            self.totalDays = ware.totalDays
+
         if self.discount <= self.lowestRatio:
             with open('html/ware.html') as fp:
                 template = fp.read()
