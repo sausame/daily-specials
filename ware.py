@@ -206,3 +206,18 @@ class WareDisplayer:
 
         return None
 
+    def outputMarkdown(self, ware, count):
+
+        # Total days
+        if ware.totalDays >= 365:
+            self.totalDays = ">{}".format(ware.totalDays)
+        else:
+            self.totalDays = ware.totalDays
+
+        if ware.discount <= ware.lowestRatio:
+            with open('markdown/ware.md') as fp:
+                template = fp.read()
+                return template.format(ware, self, count+1)
+
+        return None
+

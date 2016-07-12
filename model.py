@@ -148,3 +148,30 @@ class WareManager:
 
         print '"{}" items are outputed to "{}".'.format(len(self.wareList), path)
 
+    def outputMarkdown(self):
+
+        today = datetime.now().strftime('%Y-%m-%d')
+
+        path = 'data/index.md'
+        fpOut = open(path, 'w')
+
+        with open('markdown/header.md') as fp:
+
+            template = fp.read()
+            fpOut.write(template.format(today))
+
+        count = 0;
+
+        for ware in self.wareList:
+
+            displayer = WareDisplayer()
+
+            data = displayer.outputMarkdown(ware, count)
+            if data:
+                count += 1;
+                fpOut.write(data)
+
+        fpOut.close()
+
+        print '"{}" of "{}" items are outputed to "{}".'.format(count, len(self.wareList), path)
+

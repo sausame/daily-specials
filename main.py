@@ -15,5 +15,8 @@ if __name__ == '__main__':
     manager = WareManager(isLocal)
     manager.initWareList()
     manager.updatePriceHistories()
+    '''
     manager.outputHtml()
+    '''
+    manager.outputMarkdown()
 
