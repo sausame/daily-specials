@@ -124,7 +124,7 @@ class WareManager:
 
         today = datetime.now().strftime('%Y-%m-%d')
 
-        path = 'data/{}.html'.format(today)
+        path = 'data/index.html'
         fpOut = open(path, 'w')
 
         with open('html/header.html') as fp:
