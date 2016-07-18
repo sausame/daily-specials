@@ -169,6 +169,12 @@ class WareDisplayer:
 
     def outputHtml(self, ware):
 
+        if ware.discount > ware.lowestRatio:
+            return None
+
+        if ware.totalDays < 30: # Less than one month
+            return None
+
         maxRatio = 80
 
         # Discount
@@ -203,14 +209,19 @@ class WareDisplayer:
         else:
             self.totalDays = ware.totalDays
 
-        if self.discount <= self.lowestRatio:
-            with open('html/ware.html') as fp:
-                template = fp.read()
-                return template.format(ware, self)
+        with open('html/ware.html') as fp:
+            template = fp.read()
+            return template.format(ware, self)
 
         return None
 
     def outputMarkdown(self, ware, count):
+
+        if ware.discount > ware.lowestRatio:
+            return None
+
+        if ware.totalDays < 30: # Less than one month
+            return None
 
         # Total days
         if ware.totalDays >= 365:
@@ -218,10 +229,9 @@ class WareDisplayer:
         else:
             self.totalDays = ware.totalDays
 
-        if ware.discount <= ware.lowestRatio:
-            with open('markdown/ware.md') as fp:
-                template = fp.read()
-                return template.format(ware, self, count+1)
+        with open('markdown/ware.md') as fp:
+            template = fp.read()
+            return template.format(ware, self, count+1)
 
         return None
 
