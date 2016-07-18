@@ -54,7 +54,11 @@ class WareItem:
 
         # Basic
         self.wid = item.wareId
-        self.name = item.wname
+
+        if item.wname:
+            self.name = item.wname.replace('\n', ' ').replace('\r', ' ')
+        else:
+            self.name = ''
 
         # Prices
         self.price = item.miaoShaPrice
