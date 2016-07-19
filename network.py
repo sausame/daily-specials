@@ -12,21 +12,23 @@ def saveHttpData(filename, url, host=None):
 
     for i in range(0, 3):
         conn = httplib.HTTPConnection(host, timeout=10)  
-        conn.request("GET", url)
 
         try:
+            conn.request("GET", url)
             res = conn.getresponse()
+
+            if 200 != res.status:
+                print res.status, res.reason
+                continue
+
+            data = res.read()
+
         except socket.timeout:
-            conn.close()
+            print 'Timeout, try it again. NO. ', i+1
             continue
 
-        if 200 != res.status:
-            print res.status, res.reason
+        finally:
             conn.close()
-            continue
-
-        data = res.read()
-        conn.close()
 
         fp = open(filename, 'w')
         fp.write(data)
