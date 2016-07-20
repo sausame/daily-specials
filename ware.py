@@ -1,5 +1,6 @@
 import math
 
+import sys
 from datetime import tzinfo, timedelta, datetime
 from functools import total_ordering
 from operator import attrgetter
@@ -49,6 +50,12 @@ class WareItem:
     def __init__(self):
         self.histories = []
         self.prices = []
+        self.totalDays = 0
+        self.lowestPrice = 0.0
+        self.avgPrice = 0.0
+        self.discount = 100
+        self.lowestRatio = 100
+        self.weight = sys.maxsize
 
     def setSeckillItem(self, item, matchesItem):
 
