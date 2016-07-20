@@ -75,8 +75,9 @@ class WareItem:
         self.startTime = matchesItem.startTime
         self.endTime = matchesItem.endTime
 
-        # URL
-        self.url = 'http://item.m.jd.com/product/%s.html' % item.wareId
+        # URLs
+        self.baseUrl = 'http://item.jd.com/%s.html' % item.wareId # For history searching
+        self.url = 'http://wq.jd.com/item/view?sku=%s' % item.wareId
         self.imageurl = item.imageurl
 
     def setHistories(self, histories):

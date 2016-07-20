@@ -91,7 +91,7 @@ class WareManager:
         for ware in self.wareList:
 
             # Get URL for price history
-            url = execute(executor, ware.name, ware.url)
+            url = execute(executor, ware.name, ware.baseUrl)
 
             # Get price histories
             path = 'data/{}.js'.format(ware.wid)
