@@ -1,11 +1,13 @@
 import os, random, sys, time
 
 from datetime import datetime
-from ware import WareItem, WareDisplayer
-from js import JsExecutor
-from source import SeckillInfo
+from ftp import uploadFtp
 from history import HhHistoryParser
+from js import JsExecutor
 from network import saveHttpData
+from prop import getProperty
+from source import SeckillInfo
+from ware import WareItem, WareDisplayer
 
 class WareManager:
 
@@ -174,4 +176,21 @@ class WareManager:
         fpOut.close()
 
         print '"{}" of "{}" items are outputed to "{}".'.format(count, len(self.wareList), path)
+
+    def uploadHtmlToFtp(self, path):
+
+        filepath = 'data/index.html'
+
+        host = getProperty(path, 'host')
+        user = getProperty(path, 'user')
+        passwd = getProperty(path, 'passwd')
+        dirname = getProperty(path, 'dirname')
+
+        flag = getProperty(path, 'isProtected')
+        if flag and 'true' == flag.lower():
+            isProtected = True
+        else:
+            isProtected = False
+
+        uploadFtp(host, dirname, filepath, user, passwd, isProtected)
 
