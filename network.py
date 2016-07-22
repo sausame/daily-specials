@@ -1,5 +1,6 @@
 import httplib  
 import socket
+import time
 
 def saveHttpData(filename, url, host=None):
 
@@ -25,6 +26,9 @@ def saveHttpData(filename, url, host=None):
 
         except socket.timeout:
             print 'Timeout, try it again. NO. ', i+1
+
+            # Sleep a while
+            time.sleep(30 * i)
             continue
 
         finally:
