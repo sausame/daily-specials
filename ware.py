@@ -63,7 +63,7 @@ class WareItem:
         self.wid = item.wareId
 
         if item.wname:
-            self.name = item.wname.replace('\n', ' ').replace('\r', ' ')
+            self.name = item.wname.replace('\n', ' ').replace('\r', ' ').replace('\"', '`').replace('\'', '`')
         else:
             self.name = ''
 
