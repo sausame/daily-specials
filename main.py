@@ -8,6 +8,7 @@ if __name__ == '__main__':
     sys.setdefaultencoding('utf8')
 
     isLocal = True
+    configPath = None
 
     if len(sys.argv) > 1 and 'false' == sys.argv[1].lower():
         isLocal = False
