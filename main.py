@@ -1,11 +1,15 @@
-import sys
+import os, sys, time
 
+from datetime import datetime
 from model import WareManager
 
 if __name__ == '__main__':
 
     reload(sys)
     sys.setdefaultencoding('utf8')
+
+    os.environ['TZ'] = 'Asia/Shanghai'
+    time.tzset()
 
     isLocal = True
     configPath = None
