@@ -24,7 +24,7 @@ def saveHttpData(filename, url, host=None):
 
             data = res.read()
 
-        except OSError:
+        except Exception:
             print 'Timeout, try it again. NO. ', i+1
 
             # Sleep a while
