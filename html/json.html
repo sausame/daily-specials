@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+<title class='summary'>今日特价</title>
+</head> 
+<body> 
+<section>
+    <section style="border:none;margin: 5px;">
+        <section style="color: rgb(216, 40, 33); font-size: 20px; text-align: center; margin: 0px auto -2px; border-bottom-width: 2px; border-bottom-style: solid; border-color: rgb(216, 40, 33); border-radius: 15px; padding: 5px 5px 15px;">
+          <span class='summary' data-brushtype="text" style="border-color:rgb(216, 40, 33); color:inherit; font-size:18px; letter-spacing:2px">今日特价</span>
+        </section>
+        <section style="width: 0px; margin-right: auto; margin-left: auto; border-top-width: 0.6em; border-top-style: solid; border-bottom-color: rgb(216, 40, 33); border-top-color: rgb(216, 40, 33); height: 10px; color: inherit; border-left-width: 0.7em !important; border-left-style: solid !important; border-left-color: transparent !important; border-right-width: 0.7em !important; border-right-style: solid !important; border-right-color: transparent !important;"></section>
+        <section style="width: 0px; margin-right: auto; margin-left: auto; border-top-width: 0.6em; border-top-style: solid; border-bottom-color: rgb(254, 254, 254); border-top-color: rgb(254, 254, 254); height: 10px; margin-top: -12px; color: inherit; border-left-width: 0.7em !important; border-left-style: solid !important; border-left-color: transparent !important; border-right-width: 0.7em !important; border-right-style: solid !important; border-right-color: transparent !important;"></section>
+    </section>
+</section>
+<div class="wares"></div>
+<div class="loading">
+    <svg width="240" height="70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <text x="18.33332" y="0" xml:space="preserve" font-family="Arial" font-size="30" fill="#E44219" fill-opacity="0" stroke="#000000" baseline-shift="baseline" transform="matrix(0.9999999,0,0,0.9999999,1.666837,35.333)" xmlns="http://www.w3.org/2000/svg">Loading ...</text>
+        <ellipse class="yuan1" cx="50.5" cy="55.665" rx="4.5" ry="4.334999" fill="#E44219" fill-opacity="0" stroke="#000000" transform="matrix(0.9999999,0,0,0.9999999,6.333052,-2.000055)"></ellipse>
+        <ellipse class="yuan2" cx="50.5" cy="55.665" rx="4.5" ry="4.334999" fill="#E44219" fill-opacity="0" stroke="#000000" transform="matrix(0.9999999,0,0,0.9999999,40.99939,-1.66693)"></ellipse>
+        <ellipse class="yuan3" cx="50.5" cy="55.665" rx="4.5" ry="4.334999" fill="#E44219" fill-opacity="0" stroke="#000000" transform="matrix(0.9999999,0,0,0.9999999,71.66549,-1.667137)"></ellipse>
+        <ellipse class="yuan4" cx="50.5" cy="55.665" rx="4.5" ry="4.334999" fill="#E44219" fill-opacity="0" stroke="#000000" transform="matrix(0.9999999,0,0,0.9999999,101.6644,-1.667286)"></ellipse>
+        <ellipse class="yuan5" cx="50.5" cy="55.665" rx="4.5" ry="4.334999" fill="#E44219" fill-opacity="0" stroke="#000000" transform="matrix(0.9999999,0,0,0.9999999,132.3295,-1.667434)"></ellipse>
+    </svg>
+</div>
+<script src="jquery.min.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+<script> 
+var manager = {
+    update: function(relativeUrl) {
+        if (flag) {
+            return
+        }
+
+        flag = true;
+
+        var http = location.protocol;
+        var slashes = http.concat("//");
+        var host = slashes.concat(window.location.hostname);
+
+        var _url = host + '/' + relativeUrl;
+
+        console.log('Update from ' + _url);
+
+        $.ajax({
+            url: _url,
+            type: 'GET',
+//          data: _data,
+//          dataType: 'jsonp',
+            success: function(result) {
+
+                console.log('Updated ' + result.count + ' wares.');
+
+                document.title = result.title;
+                $('.summary').text(result.title);
+
+                for (i = 0; i < result.count; i ++) {
+                    var ware = result.list[i];
+                    var str = '<section>'
+                         + '    <h2 placeholder="' + ware.name + '" style="border-left:5px solid #666765;font-size: 18px;font-weight:bold; line-height: 32px;color:#666;padding: 5px 10px; margin: 10px 0px;">'
+                         + (i+1) + '、'
+                         + '        <a style="color:#666;" href="' + ware.url + '">' + ware.name + '</a>'
+                         + '    </h2>'
+                         + '</section>'
+                         + '<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">'
+                         + '    <section data-ct="fix">'
+                         + '        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">'
+                         + '            <section>'
+                         + '                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">'
+                         + '                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; max-height: 100px; max-width: 100px;">'
+                         + '                        <img src="' + ware.imageurl + '" style="border-radius:10%; width:100%; vertical-align:middle; margin:0; height:auto!important"/>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">'
+                         + '                    <section style="border: 0px none; padding: 0px; text-align: left;">'
+                         + '                        <section style="padding-left: 10px; min-height: 60px; border-left:1px solid rgb(73, 158, 243)">'
+                         + '                            <section style="padding-left: 10px; line-height: 1em; white-space: normal;">'
+                         + '                                <h2 style="color:#499EF3;">'
+                         + '                                    当前价格：&nbsp;￥' + ware.price + ''
+                         + '                                </h2>'
+                         + '                                <p style="color:#666;">'
+                         + '                                    上架天数：&nbsp;<span style="color:' + ware.totalDaysColor + ';"><strong>' + ware.totalDays + '</strong></span>天<br/>'
+                         + '                                    开始时间：&nbsp;<strong>' + ware.startTime + '</strong><br/>'
+                         + '                                    结束时间：&nbsp;<strong>' + ware.endTime + '</strong>'
+                         + '                                </p>'
+                         + '                            </section>'
+                         + '                        </section>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '            </section>'
+                         + '        </section>'
+                         + '    </section>'
+                         + '</section>'
+                         + '<p style="height: 0px">'
+                         + '</p>'
+                         + '<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">'
+                         + '    <section data-ct="fix">'
+                         + '        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">'
+                         + '            <section style="font-size: 14px;">'
+                         + '                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">'
+                         + '                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; min-height: 20px;">'
+                         + '                        <span style="font-size: 14px; color:#333;">当前价格</span>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">'
+                         + '                    <section style="border: 0px none; padding: 0px; text-align: left;">'
+                         + '                        <section style="padding-left: 10px; border-left:1px solid rgb(73, 158, 243)">'
+                         + '                            <section style="width: ' + ware.discount + '%; display: inline-block; float: left;" data-width="' + ware.discount + '%">'
+                         + '                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255); background-color: rgb(255, 57, 31);">'
+                         + '                                    <span style="color:#333;">￥' + ware.price + '</span>'
+                         + '                                </section>'
+                         + '                            </section>'
+                         + '                            <section style="margin-left: 0px; display: inline-block;">'
+                         + '                                <section data-ct="fix" style="padding: 5px ' + ware.padding + 'px; min-height: 16px; border:2px solid rgb(255, 255, 255)">'
+                         + '                                    <span style="color:#666;">' + ware.discount + '%</span>'
+                         + '                                </section>'
+                         + '                            </section>'
+                         + '                        </section>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '            </section>'
+                         + '        </section>'
+                         + '    </section>'
+                         + '</section>'
+                         + '<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">'
+                         + '    <section data-ct="fix">'
+                         + '        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">'
+                         + '            <section style="font-size: 14px;">'
+                         + '                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">'
+                         + '                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; min-height: 20px;">'
+                         + '                        <span style="font-size: 14px; color:#333;">历史最价格</span>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">'
+                         + '                    <section style="border: 0px none; padding: 0px; text-align: left;">'
+                         + '                        <section style="padding-left: 10px; border-left:1px solid rgb(73, 158, 243)">'
+                         + '                            <section style="width: ' + ware.lowestRatio + '%; display: inline-block; float: left;" data-width="' + ware.lowestRatio + '%">'
+                         + '                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255); background-color: rgb(255, 169, 33);">'
+                         + '                                    <span style="color:#333;">￥' + ware.lowestPrice + '</span>'
+                         + '                                </section>'
+                         + '                            </section>'
+                         + '                            <section style="margin-left: 0px; display: inline-block;">'
+                         + '                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255)">'
+                         + '                                    <span style="color:#666;">' + ware.lowestRatio + '%</span>'
+                         + '                                </section>'
+                         + '                            </section>'
+                         + '                        </section>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '            </section>'
+                         + '        </section>'
+                         + '    </section>'
+                         + '</section>'
+                         + '<section style="position: static; box-sizing: border-box; border: 0px none; padding: 0px;">'
+                         + '    <section data-ct="fix">'
+                         + '        <section style="margin-left: 5px; margin-right: 5px; padding: 0px; line-height: 1em; white-space: normal;">'
+                         + '            <section style="font-size: 14px;">'
+                         + '                <section style="width: 20%; display: inline-block; float: left;" data-width="20%">'
+                         + '                    <section data-ct="fix" style="text-align: right; padding: 5px 10px; min-height: 20px;">'
+                         + '                        <span style="font-size: 14px; color:#333;">平均价格</span>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '                <section style="margin-left: 0px; width: 80%; display: inline-block;" data-width="80%">'
+                         + '                    <section style="border: 0px none; padding: 0px; text-align: left;">'
+                         + '                        <section style="padding-left: 10px; border-left:1px solid rgb(73, 158, 243)">'
+                         + '                            <section style="width: ' + ware.avgRatio + '%; display: inline-block; float: left;" data-width="' + ware.avgRatio + '%">'
+                         + '                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255); background-color: rgb(5, 157, 127);">'
+                         + '                                    <span style="color:#FFF;">￥' + ware.avgPrice + '</span>'
+                         + '                                </section>'
+                         + '                            </section>'
+                         + '                            <section style="margin-left: 0px; display: inline-block;">'
+                         + '                                <section data-ct="fix" style="padding: 5px 5px; min-height: 16px; border:2px solid rgb(255, 255, 255)">'
+                         + '                                    <span style="color:#666;">100%</span>'
+                         + '                                </section>'
+                         + '                            </section>'
+                         + '                        </section>'
+                         + '                    </section>'
+                         + '                </section>'
+                         + '            </section>'
+                         + '        </section>'
+                         + '    </section>'
+                         + '</section>';
+                    $('.wares').append(str);
+                }
+                $('.loading').hide();
+            },
+            jsonp: 'jsonp'
+        })
+    }
+}
+
+function onLoaded() { 
+    manager.update('json/index.json');
+} 
+
+flag = false;
+window.onload = onLoaded(); 
+</script> 
+</body> 
+</html> 
+
