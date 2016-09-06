@@ -175,13 +175,13 @@ class WareItem:
 
 class WareDisplayer:
 
-    def outputHtml(self, ware):
+    def prepareHtml(self, ware):
 
         if ware.discount > ware.lowestRatio:
-            return None
+            return False
 
         if ware.totalDays < 30: # Less than one month
-            return None
+            return False
 
         maxRatio = 80
 
@@ -216,6 +216,24 @@ class WareDisplayer:
             self.totalDays = ">{}".format(ware.totalDays)
         else:
             self.totalDays = ware.totalDays
+
+        return True
+
+    def outputJson(self, ware):
+
+        if not self.prepareHtml(ware):
+            return None
+
+        with open('json/ware.json') as fp:
+            template = fp.read()
+            return '{' + template.format(ware, self) + '}'
+
+        return None
+
+    def outputHtml(self, ware):
+
+        if not self.prepareHtml(ware):
+            return None
 
         with open('html/ware.html') as fp:
             template = fp.read()

@@ -134,6 +134,39 @@ class WareManager:
 
         self.wareList.sort()
 
+    def outputJson(self):
+
+        path = 'data/index.json'
+        fpOut = open(path, 'w')
+
+        with open('json/header.json') as fp:
+            fpOut.write(fp.read())
+
+        count = 0
+
+        for ware in self.wareList:
+
+            displayer = WareDisplayer()
+
+            data = displayer.outputJson(ware)
+            if data:
+                if 0 != count:
+                    data = ',' + data
+
+                fpOut.write(data)
+                count += 1
+
+        with open('json/footer.json') as fp:
+
+            template = fp.read()
+            today = datetime.now().strftime('%Y-%m-%d')
+
+            fpOut.write(template.format(today, count) + '}')
+
+        fpOut.close()
+
+        print '"{}" of "{}" items are outputed to "{}".'.format(count, len(self.wareList), path)
+
     def outputHtml(self):
 
         today = datetime.now().strftime('%Y-%m-%d')

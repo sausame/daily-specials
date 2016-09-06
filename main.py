@@ -24,6 +24,7 @@ if __name__ == '__main__':
     manager.initWareList()
     manager.updatePriceHistories()
     manager.outputMarkdown()
+    manager.outputJson()
     manager.outputHtml()
 
     if configPath:
