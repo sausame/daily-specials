@@ -57,12 +57,12 @@ class WareManager:
         for gid in gids:
             path = 'data/%d.json' % gid
 
-            print "Retrieve {}".format(path)
-
             if not self.isLocal:
 
                 cached = os.path.exists(path)
                 if not cached:
+
+                    print "Retrieve {}".format(path)
 
                     ret = saveHttpData(path, 'http://coupon.m.jd.com/seckill/seckillList.json?gid=%d' % gid)
                     if ret < 0: continue
