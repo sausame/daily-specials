@@ -5,7 +5,7 @@ from ftp import uploadFtp
 from history import HhHistoryParser
 from js import JsExecutor
 from network import saveHttpData
-from prop import getProperty
+from utils import getProperty
 from source import SeckillInfo
 from ware import WareItem, WareDisplayer
 
