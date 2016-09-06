@@ -5,7 +5,7 @@ from ftp import uploadFtp
 from history import HhHistoryParser
 from js import JsExecutor
 from network import saveHttpData
-from utils import getProperty
+from utils import getProperty, removeOverdueFiles
 from source import SeckillInfo
 from ware import WareItem, WareDisplayer
 
@@ -21,6 +21,10 @@ class WareManager:
             pass
 
     def initWareList(self):
+
+        if not self.isLocal:
+            # Remove overdue files
+            removeOverdueFiles('data/', 23 * 3600) # Almost one day overdue
 
         # Update from Jd
         self.updateJdWareList()
@@ -56,8 +60,12 @@ class WareManager:
             print "Retrieve {}".format(path)
 
             if not self.isLocal:
-                ret = saveHttpData(path, 'http://coupon.m.jd.com/seckill/seckillList.json?gid=%d' % gid)
-                if ret < 0: continue
+
+                cached = os.path.exists(path)
+                if not cached:
+
+                    ret = saveHttpData(path, 'http://coupon.m.jd.com/seckill/seckillList.json?gid=%d' % gid)
+                    if ret < 0: continue
 
             seckillInfo = SeckillInfo(path)
 
@@ -78,7 +86,7 @@ class WareManager:
             # os.remove(path)
 
             # Sleep for a while
-            if not self.isLocal:
+            if not self.isLocal and not cached:
                 time.sleep(random.random())
 
     def updatePriceHistories(self):
@@ -100,9 +108,13 @@ class WareManager:
 
             # Update from servers
             if not self.isLocal:
-                print 'Update {}'.format(ware.wid)
-                ret = saveHttpData(path, url)
-                if ret < 0: continue
+
+                cached = os.path.exists(path)
+                if not cached:
+
+                    print 'Update {}'.format(ware.wid)
+                    ret = saveHttpData(path, url)
+                    if ret < 0: continue
 
             # Parse
             parser = HhHistoryParser()
@@ -117,7 +129,7 @@ class WareManager:
             # os.remove(path)
 
             # Sleep for a while
-            if not self.isLocal:
+            if not self.isLocal and not cached:
                 time.sleep(random.random())
 
         self.wareList.sort()

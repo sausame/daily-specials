@@ -1,3 +1,5 @@
+import os
+import time
 
 def getProperty(path, name):
 
@@ -26,4 +28,18 @@ def getProperty(path, name):
         if fp != None: fp.close()
 
     return None
+
+def removeOverdueFiles(pathname, seconds):
+
+    now = time.time()
+
+    for parent, dirnames, filenames in os.walk(pathname):
+
+        for filename in filenames:
+
+            path = parent + filename
+
+            if now > os.path.getctime(path) + seconds:
+                # Remove
+                os.remove(path)
 
