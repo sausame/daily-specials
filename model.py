@@ -179,13 +179,21 @@ class WareManager:
             template = fp.read()
             fpOut.write(template.format(today))
 
+        count = 0
+
         for ware in self.wareList:
 
             displayer = WareDisplayer()
 
             data = displayer.outputHtml(ware)
+
             if data:
                 fpOut.write(data)
+
+                if count >= 10: # The first 10 items
+                    break
+
+                count += 1
 
         with open('html/footer.html') as fp:
 
@@ -193,7 +201,7 @@ class WareManager:
 
         fpOut.close()
 
-        print '"{}" items are outputed to "{}".'.format(len(self.wareList), path)
+        print '"{}" of "{}" items are outputed to "{}".'.format(count, len(self.wareList), path)
 
     def outputMarkdown(self):
 
@@ -224,8 +232,6 @@ class WareManager:
 
     def uploadHtmlToFtp(self, path):
 
-        filepath = 'data/index.html'
-
         host = getProperty(path, 'host')
         user = getProperty(path, 'user')
         passwd = getProperty(path, 'passwd')
@@ -237,5 +243,6 @@ class WareManager:
         else:
             isProtected = False
 
-        uploadFtp(host, dirname, filepath, user, passwd, isProtected)
+        uploadFtp(host, dirname, 'data/index.html', user, passwd, isProtected)
+        uploadFtp(host, '{}/json'.format(dirname), 'data/index.json', user, passwd, isProtected)
 
