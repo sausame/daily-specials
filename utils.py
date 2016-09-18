@@ -29,7 +29,7 @@ def getProperty(path, name):
 
     return None
 
-def removeOverdueFiles(pathname, seconds):
+def removeOverdueFiles(pathname, seconds, suffix=None):
 
     now = time.time()
 
@@ -38,6 +38,9 @@ def removeOverdueFiles(pathname, seconds):
         for filename in filenames:
 
             path = parent + filename
+
+            if None != suffix and not filename.endswith(suffix):
+                continue
 
             if now > os.path.getctime(path) + seconds:
                 # Remove

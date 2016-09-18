@@ -24,7 +24,8 @@ class WareManager:
 
         if not self.isLocal:
             # Remove overdue files
-            removeOverdueFiles('data/', 23 * 3600) # Almost one day overdue
+            removeOverdueFiles('data/', 47 * 3600, '.js') # Almost two days overdue
+            removeOverdueFiles('data/', 11 * 3600, '.json') # Almost half of one day overdue
 
         # Update from Jd
         self.updateJdWareList()
