@@ -3,7 +3,9 @@
 ![{0.name}]({0.imageurl} "{0.name}")
 
 **当前价格 : ￥{0.price}**
+
 上架天数 : _{1.totalDays}_ 天
+
 特价时间 : 从 _{0.startTime}_ 到 _{0.endTime}_
 
 <table border="0">
