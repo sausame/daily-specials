@@ -27,7 +27,7 @@ function to(a, c) {
 }
 
 function isString(str) {
-    return toString.call(str) === '[object String]';
+    return true; // toString.call(str) === '[object String]';
 }
 
 function strReverse(a) {

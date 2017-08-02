@@ -93,9 +93,7 @@ class WareManager:
     def updatePriceHistories(self):
 
         def execute(executor, title, url):
-            value = 'requestPriceInfo("{}", "{}")'.format(title, url)
-
-            return executor.execute(value)
+            return executor.context.requestPriceInfo(title, url)
 
         executor = JsExecutor('js/huihui.js')
 
